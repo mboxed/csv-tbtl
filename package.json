@@ -1,0 +1,17 @@
+{
+  "name": "csv-tbtl",
+  "version": "0.1.0",
+  "description": "A converter between CSV and TBTL",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "csv-tbtl": "./index.js"
+  },
+  "author": "mboxed <mboxxed@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "csv-parse": "^4.4.1"
+  }
+}
