@@ -9,8 +9,13 @@ Usage
 
 If cloned from repo:
 
-`node index.js <input.csv> <output.tbtl>`
+`node index.js [flags] <input.csv> <output.tbtl>`
 
 If taken from npm: (not available yet)
 
-`csv-tbtl <input.csv> <output.tbtl>`
+`csv-tbtl [flags] <input.csv> <output.tbtl>`
+
+Flags
+------
+
+`--delim <delimiter>` or `-d <delimiter>` - specifies the delimiter the file is using (good for TSV files or weirdly formatted CSV files)

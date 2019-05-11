@@ -4,13 +4,27 @@ const fs = require('fs')
 function main () {
   var args = process.argv
 
-  if (args.length < 4) {
-    console.log(`usage: ${args[0]} ${args[1]} <input> <output>`)
+  var expected_length = args[0].endsWith("node") ? 4 : 3
+  if (args.length < expected_length) {
+    console.log(`usage: ${args[0]} ${expected_length === 4 ? args[1] : ""} [flags] <input> <output>`)
+    console.log(`possible flags: \n`)
+    console.log(`\t--delim | -d <delimiter>\n\t\tspecifies the delimiter for the file format (tabs, semicolons, etc.)`)
     return
   }
 
   args.splice(0, 2)
-  console.log(args)
+  var delimiter = ','
+
+  for(var i =0;i < args.length;i++) {
+    switch(args[i]) {
+      case "--delim":
+      case "-d":
+        if(args.length <= i+1) {
+          throw new Error("missing argument for --delim flag!")
+        }
+        delimiter = args[++i]
+    }
+  }
 
   function makeKeys (arr) {
     var keys = []
@@ -20,7 +34,7 @@ function main () {
     return keys
   }
 
-  var parser = parse({ trim: true, skip_empty_lines: true }, function (err, r) {
+  var parser = parse({ trim: true, skip_empty_lines: true, delimiter: delimiter }, function (err, r) {
     if (err) throw err
 
     var keys = makeKeys(r.splice(0, 1)[0])
@@ -51,12 +65,12 @@ function main () {
       buffer += '\n'
     }
 
-    fs.writeFile(args[1], buffer, function (err) {
+    fs.writeFile(args[args.length-1], buffer, function (err) {
       if (err) throw err
     })
   })
 
-  fs.readFile(args[0], function (err, data) {
+  fs.readFile(args[args.length-2], function (err, data) {
     if (err) throw err
     parser.write(data)
     parser.end()
