@@ -12,6 +12,6 @@
   "author": "mboxed <mboxxed@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "csv-parse": "^4.4.1"
+    "csv-parse": "^4.4.6"
   }
 }
